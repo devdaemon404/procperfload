@@ -51,6 +51,7 @@ function performanceData() {
         const cpuModel = cpus[0].model;
         const numCores = cpus.length;
         const cpuSpeed = cpus[0].speed;
+        const isActive = true;
 
         const cpuLoad = await getCpuLoad();
         resolve({
@@ -63,7 +64,8 @@ function performanceData() {
             cpuModel,
             numCores,
             cpuLoad,
-            cpuSpeed
+            cpuSpeed,
+            isActive
         })
     })
 }
