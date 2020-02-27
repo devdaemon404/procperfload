@@ -14,13 +14,29 @@ const socketMain = (io, socket) => {
         }
     });
 
-    socket.on('initPerfData', (data => {
+    socket.on('initPerfData', (async (data) => {
         macA = data.macA;
-        
+        const mongooseResponse = await checkAndAdd(data);
+        console.log(mongooseResponse);
     }))
     socket.on('perfData', (data => {
         console.log(data);
     }))
+}
+
+const checkAndAdd = async (data) => {
+    try {
+        let machine = await Machine.findOne({ macA: data.macA });
+        if (machine !== null) {
+            return 'found';
+        }
+        machine = new Machine(data);
+        await machine.save();
+        return 'added';
+    } catch (error) {
+        console.error(error.message);
+        throw error;
+    }
 }
 
 module.exports = socketMain; 
