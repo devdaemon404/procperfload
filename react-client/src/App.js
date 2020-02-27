@@ -8,11 +8,11 @@ const App = () => {
 
   useEffect(() => {
     socket.on('data', (data) => {
-      const currentState = ({ ...performanceData });
-      currentState[data.macA] = data;
-      setPerformanceData(currentState)
+      performanceData[data.macA] = data;
+      setPerformanceData({ ...performanceData })
     });
   }, []);
+  console.log(performanceData)
   let widget = [];
   Object.entries(performanceData).forEach(([key, value]) => {
     widget.push(<Widget key={key} data={value} />)
