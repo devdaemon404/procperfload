@@ -7,8 +7,9 @@ const socketMain = (io, socket) => {
     socket.on('clientAuth', (key) => {
         if (key === '5fsfsdjeASDASDJaewwae34asd') {
             socket.join('clients');
-        } else if (key = 'akjsdkjk232asDDS') {
+        } else if (key === 'akjsdkjk232asDDS') {
             socket.join('ui');
+            console.log('A react app joined')
         } else {
             socket.disconnect(true);
         }

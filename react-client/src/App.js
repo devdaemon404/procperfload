@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-
-function App() {
+import socket from './utilities/socketConnection';
+const App = () => {
+  const [performanceData, setPerformanceData] = useState({});
+  useEffect(() => {
+    socket.on('data', (data) => {
+      setPerformanceData(data)
+    });
+  }, []);
+  console.log(performanceData)
   return (
     <div className="App">
       <header className="App-header">
