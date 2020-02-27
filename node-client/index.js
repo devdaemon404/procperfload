@@ -21,7 +21,7 @@ socket.on('connect', () => {
 
     let performanceDataInterval = setInterval(() => {
         performanceData().then((allperfdata) => {
-            // console.log(allperfdata)
+            allperfdata.macA = macA;
             socket.emit('perfData', allperfdata)
         })
     }, 1000);
@@ -45,7 +45,7 @@ function performanceData() {
 
         const cpuModel = cpus[0].model;
         const numCores = cpus.length;
-        // const cpuSpeed = cpus[0].speed;
+        const cpuSpeed = cpus[0].speed;
 
         const cpuLoad = await getCpuLoad();
         resolve({
@@ -57,7 +57,8 @@ function performanceData() {
             upTime,
             cpuModel,
             numCores,
-            cpuLoad
+            cpuLoad,
+            cpuSpeed
         })
     })
 }
