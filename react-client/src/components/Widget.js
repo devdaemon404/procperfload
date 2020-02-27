@@ -5,13 +5,21 @@ import Info from './Info';
 import '../widget.css';
 
 const Widget = ({ data }) => {
-    const { freeMem, totalMem, usedMem, memUsage, osType, upTime, cpuModel, numCores, cpuLoad, macA, cpuSpeed } = data;
-    const cpu = { cpuLoad };
-    const mem = { totalMem, usedMem, memUsage, freeMem }
+    const { freeMem, totalMem, usedMem, memUsage, osType, upTime, cpuModel, numCores, cpuLoad, macA, cpuSpeed, isActive } = data;
+    const cpuWidgetId = `cpu-widget-${macA}`;
+    const memWidgetId = `mem-widget-${macA}`;
+    const cpu = { cpuLoad, cpuWidgetId };
+    const mem = { totalMem, usedMem, memUsage, freeMem, memWidgetId }
     const info = { macA, upTime, cpuModel, osType, numCores, cpuSpeed }
+    let notActiveDiv = '';
+    if (!isActive) {
+        notActiveDiv = <div className="not-active">Offline</div>
+    }
+
+
     return (
-        <div>
-            <h1>Widget!!</h1>
+        <div className="widget col-sm-12">
+            {notActiveDiv}
             <Cpu cpu={cpu} />
             <Mem mem={mem} />
             <Info info={info} />
