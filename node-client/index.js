@@ -6,6 +6,11 @@ socket.on('connect', () => {
     const ni = os.networkInterfaces();
     let macA;
     for (let key in ni) {
+        //Testing Purposes
+        if (process.env.NODE_ENV !== 'production') {
+            macA = Math.floor(Math.random() * 3) + 1;
+            break;
+        }
         if (!ni[key][0].internal) {
             macA = ni[key][0].mac;
             break;
