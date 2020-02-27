@@ -1,4 +1,8 @@
+const connectDB = require('./config/db');
+const Machine = require('./models/Machine')
+connectDB();
 const socketMain = (io, socket) => {
+    let macA;
     // console.log(`A socket connected :${socket.id}`)
     socket.on('clientAuth', (key) => {
         if (key === '5fsfsdjeASDASDJaewwae34asd') {
@@ -8,7 +12,12 @@ const socketMain = (io, socket) => {
         } else {
             socket.disconnect(true);
         }
-    })
+    });
+
+    socket.on('initPerfData', (data => {
+        macA = data.macA;
+        
+    }))
     socket.on('perfData', (data => {
         console.log(data);
     }))

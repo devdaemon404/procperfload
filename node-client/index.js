@@ -11,7 +11,13 @@ socket.on('connect', () => {
             break;
         }
     }
+
     socket.emit('clientAuth', '5fsfsdjeASDASDJaewwae34asd');
+
+    performanceData().then((allperfdata) => {
+        allperfdata.macA = macA;
+        socket.emit('initPerfData', allperfdata)
+    });
 
     let performanceDataInterval = setInterval(() => {
         performanceData().then((allperfdata) => {
@@ -21,7 +27,6 @@ socket.on('connect', () => {
     }, 1000);
 
     socket.on('disconnect', () => {
-       
         clearInterval(performanceDataInterval);
     });
 })
