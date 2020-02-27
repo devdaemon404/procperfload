@@ -11,12 +11,19 @@ socket.on('connect', () => {
             break;
         }
     }
+    socket.emit('clientAuth', '5fsfsdjeASDASDJaewwae34asd');
+
     let performanceDataInterval = setInterval(() => {
         performanceData().then((allperfdata) => {
             // console.log(allperfdata)
             socket.emit('perfData', allperfdata)
         })
     }, 1000);
+
+    socket.on('disconnect', () => {
+       
+        clearInterval(performanceDataInterval);
+    });
 })
 function performanceData() {
     return new Promise(async (resolve, reject) => {
